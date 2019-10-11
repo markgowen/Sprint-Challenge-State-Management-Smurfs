@@ -1,5 +1,8 @@
 import React, { useState, useEffect }from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
+
+import { postSmurf} from '../actions'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -44,7 +47,7 @@ const useStyles = makeStyles(theme => ({
       }
   }));
 
-const PostSmurf = () => {
+const PostSmurf = (props) => {
       const classes = useStyles();
       const [newSmurf, setNewSmurf] = useState({
         name: '',
@@ -71,15 +74,7 @@ const PostSmurf = () => {
 
       const addSmurf = e => {
           e.preventDefault();
-          axios
-            .post(`http://localhost:3333/smurfs`, newSmurf)
-            .then(res => {
-                console.log('POST request for addSmurf', res);
-                setNewSmurf(res.data);
-            })
-            .catch(err => {
-                console.log('ERROR in POST request for addSmurf', err.response);
-            });
+          props.postSmurf(newSmurf);
         setNewSmurf('');
     };
 
@@ -150,4 +145,5 @@ const PostSmurf = () => {
     );
   };
 
-  export default PostSmurf;
+
+  export default connect(null, { postSmurf })(PostSmurf);
