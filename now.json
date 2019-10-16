@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "smurfs",
+  "builds": [
+    {
+      "src": "smurfs/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "build" }
+    }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "smurfs/$1" }]
+}
